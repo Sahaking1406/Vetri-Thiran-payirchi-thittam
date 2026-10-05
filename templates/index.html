@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        ComicCraft — AI Comic Story Creator
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/styles.css"
+    >
+
+</head>
+
+<body class="landing">
+
+<main class="hero-shell">
+
+<section class="hero-copy">
+
+    <span class="badge">
+        ✦ GEMINI + AI IMAGE GENERATION
+    </span>
+
+    <h1>
+        Turn one idea into a
+        <span>comic.</span>
+    </h1>
+
+    <p class="lead">
+
+        Create a five-panel illustrated story
+        with AI-generated narration,
+        dialogue and comic-style artwork.
+
+    </p>
+
+
+    {% if error %}
+
+    <div class="alert error">
+
+        <strong>
+            Generation failed.
+        </strong>
+
+        <span>
+            {{ error }}
+        </span>
+
+    </div>
+
+    {% endif %}
+
+
+    <form
+        action="/generate"
+        method="post"
+        class="comic-form"
+        id="comicForm"
+    >
+
+        <label>
+
+            Story prompt
+
+            <textarea
+                name="story_prompt"
+                rows="4"
+                maxlength="2000"
+                placeholder="A brave fox discovers a hidden portal in an enchanted forest..."
+                required
+            >{{ defaults.story_prompt or "" }}</textarea>
+
+        </label>
+
+
+        <div class="grid-2">
+
+            <label>
+
+                Main character
+
+                <input
+                    name="character_name"
+                    value="{{ defaults.character_name or 'Alex' }}"
+                    placeholder="Alex"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+
+                Setting
+
+                <select name="setting">
+
+                    {% for item in [
+                        "enchanted forest",
+                        "school",
+                        "futuristic city",
+                        "outer space",
+                        "village",
+                        "underwater world"
+                    ] %}
+
+                    <option
+                        {% if defaults.setting == item %}
+                        selected
+                        {% endif %}
+                    >
+                        {{ item }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <label>
+
+                Story tone
+
+                <select name="tone">
+
+                    {% for item in [
+                        "light-hearted",
+                        "dramatic",
+                        "poetic",
+                        "funny",
+                        "mysterious",
+                        "adventurous"
+                    ] %}
+
+                    <option
+                        {% if defaults.tone == item %}
+                        selected
+                        {% endif %}
+                    >
+                        {{ item }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+
+            <label>
+
+                Art style
+
+                <select name="art_style">
+
+                    {% for item in [
+                        "comic book",
+                        "anime",
+                        "pixel art",
+                        "watercolor",
+                        "cinematic",
+                        "storybook"
+                    ] %}
+
+                    <option
+                        {% if defaults.art_style == item %}
+                        selected
+                        {% endif %}
+                    >
+                        {{ item }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            type="submit"
+        >
+
+            Create My Comic
+
+            <span>→</span>
+
+        </button>
+
+
+        <p class="form-note">
+
+            AI generation can take a few minutes,
+            especially for illustrations.
+
+        </p>
+
+    </form>
+
+
+    <div
+        class="loading-overlay"
+        id="loadingOverlay"
+        aria-hidden="true"
+    >
+
+        <div class="spinner"></div>
+
+        <strong>
+            Creating your comic…
+        </strong>
+
+        <span>
+            Generating story, dialogue
+            and five illustrations.
+        </span>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+document
+    .getElementById("comicForm")
+    .addEventListener(
+        "submit",
+        function () {
+
+            document
+                .getElementById(
+                    "loadingOverlay"
+                )
+                .classList
+                .add("show");
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+/*
+    ComicCraft frontend JavaScript.
+
+    The application intentionally uses normal HTML form
+    submission so the project remains simple and reliable.
+
+    Additional JavaScript functionality can be added here
+    later without changing the FastAPI backend.
+*/

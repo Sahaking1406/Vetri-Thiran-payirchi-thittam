@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        {{ title }} — ComicCraft
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/styles.css"
+    >
+
+</head>
+
+
+<body class="preview-page">
+
+
+<header class="topbar">
+
+    <a
+        class="brand"
+        href="/"
+    >
+        ComicCraft
+    </a>
+
+
+    <a
+        class="secondary-btn"
+        href="/"
+    >
+        Create another
+    </a>
+
+</header>
+
+
+<main class="preview-shell">
+
+
+    <div class="preview-heading">
+
+        <div>
+
+            <span class="badge">
+                YOUR COMIC PREVIEW
+            </span>
+
+            <h1>
+                {{ title }}
+            </h1>
+
+            <p>
+                Review your story panel-by-panel,
+                then export it as a PDF.
+            </p>
+
+        </div>
+
+
+        <a
+            class="primary-btn compact"
+            href="/download/{{ pdf_url.split('/')[-1] }}"
+        >
+            Download PDF ↓
+        </a>
+
+    </div>
+
+
+    <section class="panels">
+
+
+        {% for panel in layout %}
+
+
+        <article class="comic-panel">
+
+            <div class="panel-number">
+                PANEL {{ panel.panel_number }}
+            </div>
+
+
+            <h2>
+                {{ panel.title }}
+            </h2>
+
+
+            <img
+                src="{{ panel.image_url }}"
+                alt="Comic panel {{ panel.panel_number }}"
+            >
+
+
+            <p class="scene">
+
+                <em>
+                    {{ panel.scene_description }}
+                </em>
+
+            </p>
+
+
+            <div class="story-copy">
+
+                <p>
+
+                    <strong>
+                        Caption:
+                    </strong>
+
+                    {{ panel.caption }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Narration:
+                    </strong>
+
+                    {{ panel.narration }}
+
+                </p>
+
+
+                {% if panel.dialogue %}
+
+                <blockquote>
+
+                    “{{ panel.dialogue }}”
+
+                </blockquote>
+
+                {% endif %}
+
+            </div>
+
+        </article>
+
+
+        {% endfor %}
+
+
+    </section>
+
+
+    <div class="bottom-cta">
+
+        <a
+            class="primary-btn"
+            href="/download/{{ pdf_url.split('/')[-1] }}"
+        >
+            Download Your Comic as PDF
+        </a>
+
+
+        <a
+            class="text-link"
+            href="/"
+        >
+            Start a new comic
+        </a>
+
+    </div>
+
+
+</main>
+
+</body>
+
+</html>
